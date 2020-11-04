@@ -17,10 +17,16 @@ const DB_OPTIONS = {
   useUnifiedTopology: true,
 };
 
+const CORS_OPTIONS = {
+  origin: ['http://localhost:3000'],
+  credentials: true,
+};
+
 module.exports = {
   limiter,
   KEY,
   DB_NAME,
   DB_OPTIONS,
   PORT,
+  CORS_OPTIONS,
 };

@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { signout } = require('../controllers/signout');
+const { signOut } = require('../controllers/signout');
 
-router.post('/', signout);
+router.post('/', signOut);
 
 module.exports = router;
