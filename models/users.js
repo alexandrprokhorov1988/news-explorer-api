@@ -8,7 +8,7 @@ const { UNAUTORIZED_EMAIL_ERR, CONFLICT_ERR } = require('../utils/constants');
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    require: [true, 'необходимо заполнить поле email'],
+    require: [true, 'Необходимо заполнить поле email'],
     unique: true,
     validate: {
       validator: (str) => validator.isEmail(str),
@@ -17,13 +17,13 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    require: [true, 'необходимо заполнить поле password'],
+    require: [true, 'Необходимо заполнить поле password'],
     minlength: [6, 'Минимальная длина поля 6'],
     select: false,
   },
   name: {
     type: String,
-    required: [true, 'необходимо заполнить поле name'],
+    required: [true, 'Необходимо заполнить поле name'],
     minlength: [2, 'Минимальная длина поля 2'],
     maxLength: [30, 'Максимальная длина поля 30'],
   },

@@ -3,7 +3,15 @@ const { SERVER_ERR } = require('../utils/constants');
 
 const errorHandler = (err, req, res, next) => {
   const statusCode = isCelebrateError(err) ? 400 : err.statusCode || 500;
-  const message = isCelebrateError(err) ? err.details.get('body').details[0].message : err.message;
+  let type;
+  if (isCelebrateError(err)) {
+    if (err.details.get('body')) {
+      type = 'body';
+    } else {
+      type = 'params';
+    }
+  }
+  const message = isCelebrateError(err) ? err.details.get(type).details[0].message : err.message;
   res
     .status(statusCode)
     .send({
@@ -14,6 +22,4 @@ const errorHandler = (err, req, res, next) => {
   next();
 };
 
-module.exports = {
-  errorHandler,
-};
+module.exports = errorHandler;
