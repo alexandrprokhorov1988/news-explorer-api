@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 const ConflictError = require('../errors/conflict-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
-const { UNAUTORIZED_EMAIL_ERR, CONFLICT_ERR } = require('../utils/constants');
+const { UNAUTORIZED_DATA_ERR, CONFLICT_ERR } = require('../utils/constants');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -35,12 +35,12 @@ userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new UnauthorizedError(UNAUTORIZED_EMAIL_ERR));
+        return Promise.reject(new UnauthorizedError(UNAUTORIZED_DATA_ERR));
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return Promise.reject(new UnauthorizedError(UNAUTORIZED_EMAIL_ERR));
+            return Promise.reject(new UnauthorizedError(UNAUTORIZED_DATA_ERR));
           }
           return user;
         });
