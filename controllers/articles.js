@@ -22,16 +22,27 @@ module.exports.createArticle = (req, res, next) => {
   } = req.body;
   const owner = req.user._id;
 
-  Articles.create({
-    keyword, title, text, date, source, link, image, owner,
-  })
-    .then((article) => res.send(article))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequestError(BAD_REQUEST_ERR));
-      } else {
-        next(err);
-      }
+  Articles.findOneAndUpdate(
+    {
+      keyword, title, text, date, source, link, image,
+    },
+    { $addToSet: { owner: req.user._id } },
+    { new: true, runValidators: true },
+  )
+    .orFail(() => new NotFoundError(NOT_FOUND_ITEM_ERR))
+    .then((item) => res.send(item))
+    .catch(() => {
+      Articles.create({
+        keyword, title, text, date, source, link, image, owner,
+      })
+        .then((article) => res.send(article))
+        .catch((err) => {
+          if (err.name === 'ValidationError') {
+            next(new BadRequestError(BAD_REQUEST_ERR));
+          } else {
+            next(err);
+          }
+        });
     });
 };
 
@@ -41,7 +52,16 @@ module.exports.deleteArticle = (req, res, next) => {
   Articles.findOne({ _id: req.params.articleId })
     .orFail(() => new NotFoundError(NOT_FOUND_ITEM_ERR))
     .then((article) => {
-      if (article.owner.toString() === owner) {
+      if (article.owner.indexOf(owner) !== -1 && article.owner.length > 1) {
+        Articles.findOneAndUpdate(
+          { _id: req.params.articleId, owner },
+          { $pull: { owner: req.user._id } },
+          { new: true, runValidators: true },
+        )
+          .orFail(() => new NotFoundError(NOT_FOUND_ITEM_ERR))
+          .then((item) => res.send(item))
+          .catch(next);
+      } else if (article.owner.indexOf(owner) !== -1) {
         Articles.deleteOne({ _id: req.params.articleId, owner })
           .orFail(() => new ForbiddenError(FORBIDDEN_ERR))
           .then((item) => res.send(item))
