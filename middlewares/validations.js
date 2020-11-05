@@ -108,7 +108,7 @@ const validateSignup = celebrate({
       .messages({
         'any.required': 'Поле password должно быть заполнено',
         'string.empty': 'Поле password не должно быть пустым',
-        'string.min': 'Минимальная длина поля 2',
+        'string.min': 'Минимальная длина поля password - 2',
       }),
     name: Joi
       .string()
