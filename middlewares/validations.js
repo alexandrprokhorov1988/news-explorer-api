@@ -118,8 +118,8 @@ const validateSignup = celebrate({
       .trim(true)
       .messages({
         'any.required': 'Поле name должно быть заполнено',
-        'string.min': 'Минимальная длина поля 2',
-        'string.max': 'Максимальная длина поля 30',
+        'string.min': 'Минимальная длина поля name - 2',
+        'string.max': 'Максимальная длина name - поля 30',
         'string.empty': 'Поле name не должно быть пустым',
       }),
   }),

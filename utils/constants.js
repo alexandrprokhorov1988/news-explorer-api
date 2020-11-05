@@ -4,6 +4,7 @@ const CONFLICT_ERR = 'Email занят';
 const FORBIDDEN_ERR = 'Отказ в авторизации запроса';
 const NOT_FOUND_ERR = 'Запрашиваемый ресурс не найден';
 const NOT_FOUND_ITEM_ERR = 'Нет карточки с таким id';
+const NOT_FOUND_USER_ITEMS_ERR = 'Записи отсутствуют';
 const NOT_FOUND_USER_ERR = 'Нет пользователя с таким id';
 const SERVER_ERR = 'На сервере произошла ошибка';
 const UNAUTORIZED_ERR = 'Необходима авторизация';
@@ -16,6 +17,7 @@ module.exports = {
   FORBIDDEN_ERR,
   NOT_FOUND_ERR,
   NOT_FOUND_ITEM_ERR,
+  NOT_FOUND_USER_ITEMS_ERR,
   NOT_FOUND_USER_ERR,
   SERVER_ERR,
   UNAUTORIZED_ERR,

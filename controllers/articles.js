@@ -5,13 +5,14 @@ const ForbiddenError = require('../errors/forbidden-err');
 const {
   BAD_REQUEST_ERR,
   NOT_FOUND_ITEM_ERR,
+  NOT_FOUND_USER_ITEMS_ERR,
   BAD_REQUEST_ID_ERR,
   FORBIDDEN_ERR,
 } = require('../utils/constants');
 
 module.exports.getArticle = (req, res, next) => {
   Articles.find({ owner: req.user })
-    .orFail(() => new NotFoundError(NOT_FOUND_ITEM_ERR))
+    .orFail(() => new NotFoundError(NOT_FOUND_USER_ITEMS_ERR))
     .then((user) => res.send(user))
     .catch(next);
 };
