@@ -10,10 +10,10 @@
 #### Описание
 Проект News Explorer выполненн на Node.js, Mongodb и Express.
 * IP-адрес сервера : 37.230.115.88
-* URL API https://api.apexpress.students.nomoreparties.co
+* URL API https://api.apexpress.students.nomoreparties.co/
 
 #### Запуск проекта
-* [Ссылка](https://api.apexpress.students.nomoreparties.co)
+* [Ссылка](https://api.apexpress.students.nomoreparties.co/)
 
 #### Технологии
 * Javascript.
