@@ -24,26 +24,36 @@ module.exports.createArticle = (req, res, next) => {
   } = req.body;
   const owner = req.user._id;
 
-  Articles.create({
+  Articles.findOne({
     keyword, title, text, date, source, link, image, owner,
-  })
-    .then((article) => res.send({
-      _id: article._id,
-      keyword: article.keyword,
-      title: article.title,
-      text: article.text,
-      date: article.date,
-      source: article.source,
-      link: article.link,
-      image: article.image,
-    }))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequestError(BAD_REQUEST_ERR));
+  }).select('-owner')
+    .then((item) => {
+      if (item) {
+        res.send(item);
       } else {
-        next(err);
+        Articles.create({
+          keyword, title, text, date, source, link, image, owner,
+        })
+          .then((article) => res.send({
+            _id: article._id,
+            keyword: article.keyword,
+            title: article.title,
+            text: article.text,
+            date: article.date,
+            source: article.source,
+            link: article.link,
+            image: article.image,
+          }))
+          .catch((err) => {
+            if (err.name === 'ValidationError') {
+              next(new BadRequestError(BAD_REQUEST_ERR));
+            } else {
+              next(err);
+            }
+          });
       }
-    });
+    })
+    .catch(next);
 };
 
 module.exports.deleteArticle = (req, res, next) => {
