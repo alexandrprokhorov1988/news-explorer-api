@@ -12,7 +12,7 @@ const {
 } = require('../utils/constants');
 
 module.exports.getArticle = (req, res, next) => {
-  Articles.find({ owner: req.user })
+  Articles.find({ owner: req.user }).select('-owner')
     .orFail(() => new NotFoundError(NOT_FOUND_USER_ITEMS_ERR))
     .then((user) => res.send(user))
     .catch(next);
