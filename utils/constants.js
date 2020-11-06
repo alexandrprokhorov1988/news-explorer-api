@@ -7,6 +7,7 @@ const NOT_FOUND_ITEM_ERR = 'Нет карточки с таким id';
 const NOT_FOUND_USER_ITEMS_ERR = 'Записи отсутствуют';
 const NOT_FOUND_USER_ERR = 'Нет пользователя с таким id';
 const SERVER_ERR = 'На сервере произошла ошибка';
+const SUCCESS_DELETE = 'Карточка удалена';
 const UNAUTORIZED_ERR = 'Необходима авторизация';
 const UNAUTORIZED_DATA_ERR = 'Неправильные почта или пароль';
 
@@ -20,6 +21,7 @@ module.exports = {
   NOT_FOUND_USER_ITEMS_ERR,
   NOT_FOUND_USER_ERR,
   SERVER_ERR,
+  SUCCESS_DELETE,
   UNAUTORIZED_ERR,
   UNAUTORIZED_DATA_ERR,
 };

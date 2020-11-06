@@ -8,6 +8,7 @@ const {
   NOT_FOUND_USER_ITEMS_ERR,
   BAD_REQUEST_ID_ERR,
   FORBIDDEN_ERR,
+  SUCCESS_DELETE,
 } = require('../utils/constants');
 
 module.exports.getArticle = (req, res, next) => {
@@ -23,27 +24,25 @@ module.exports.createArticle = (req, res, next) => {
   } = req.body;
   const owner = req.user._id;
 
-  Articles.findOneAndUpdate(
-    {
-      keyword, title, text, date, source, link, image,
-    },
-    { $addToSet: { owner: req.user._id } },
-    { new: true, runValidators: true },
-  )
-    .orFail(() => new NotFoundError(NOT_FOUND_ITEM_ERR))
-    .then((item) => res.send(item))
-    .catch(() => {
-      Articles.create({
-        keyword, title, text, date, source, link, image, owner,
-      })
-        .then((article) => res.send(article))
-        .catch((err) => {
-          if (err.name === 'ValidationError') {
-            next(new BadRequestError(BAD_REQUEST_ERR));
-          } else {
-            next(err);
-          }
-        });
+  Articles.create({
+    keyword, title, text, date, source, link, image, owner,
+  })
+    .then((article) => res.send({
+      _id: article._id,
+      keyword: article.keyword,
+      title: article.title,
+      text: article.text,
+      date: article.date,
+      source: article.source,
+      link: article.link,
+      image: article.image,
+    }))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError(BAD_REQUEST_ERR));
+      } else {
+        next(err);
+      }
     });
 };
 
@@ -53,19 +52,10 @@ module.exports.deleteArticle = (req, res, next) => {
   Articles.findOne({ _id: req.params.articleId })
     .orFail(() => new NotFoundError(NOT_FOUND_ITEM_ERR))
     .then((article) => {
-      if (article.owner.indexOf(owner) !== -1 && article.owner.length > 1) {
-        Articles.findOneAndUpdate(
-          { _id: req.params.articleId, owner },
-          { $pull: { owner: req.user._id } },
-          { new: true, runValidators: true },
-        )
-          .orFail(() => new NotFoundError(NOT_FOUND_ITEM_ERR))
-          .then((item) => res.send(item))
-          .catch(next);
-      } else if (article.owner.indexOf(owner) !== -1) {
+      if (article.owner.toString() === owner) {
         Articles.deleteOne({ _id: req.params.articleId, owner })
           .orFail(() => new ForbiddenError(FORBIDDEN_ERR))
-          .then((item) => res.send(item))
+          .then(() => res.send({ message: SUCCESS_DELETE }))
           .catch(next);
       } else {
         throw new ForbiddenError(FORBIDDEN_ERR);

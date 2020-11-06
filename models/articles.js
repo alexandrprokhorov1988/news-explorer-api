@@ -38,11 +38,11 @@ const articleShema = new mongoose.Schema({
       message: (props) => `${props.value} некорректный url`,
     },
   },
-  owner: [{
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, 'Необходимо заполнить поле owner'],
     ref: 'user',
-  }],
+  },
 }, {
   versionKey: false,
 });
