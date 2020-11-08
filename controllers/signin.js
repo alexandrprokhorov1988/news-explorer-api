@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 const { KEY } = require('../utils/config');
 const UnauthorizedError = require('../errors/unauthorized-err');
-const { BAD_REQUEST_ERR } = require('../utils/constants');
+const { BAD_REQUEST_ERR, SUCCESS_LOGIN } = require('../utils/constants');
 
 module.exports.signin = (req, res, next) => {
   const { email, password } = req.body;
@@ -21,7 +21,7 @@ module.exports.signin = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: true,
-      }).send({ message: 'Авторизация успешна' });
+      }).send({ message: SUCCESS_LOGIN });
     })
     .catch(next);
 };

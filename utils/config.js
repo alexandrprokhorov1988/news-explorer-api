@@ -15,7 +15,8 @@ const {
 
 const KEY = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
 
-const DB_NAME = NODE_ENV === 'production' ? DB_ADDRESS : 'dev-news-explorer-db';
+const DB_NAME = NODE_ENV === 'production' ? DB_ADDRESS : 'mongodb://localhost:27017/devnewsdb';
+
 const DB_OPTIONS = {
   useNewUrlParser: true,
   useCreateIndex: true,

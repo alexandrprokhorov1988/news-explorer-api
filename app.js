@@ -25,10 +25,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(router);
-app.use(errorLogger);
 app.use(() => {
   throw new NotFoundError(NOT_FOUND_ERR);
 });
+app.use(errorLogger);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
