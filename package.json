@@ -1,0 +1,44 @@
+{
+  "name": "news-explorer-api",
+  "version": "1.0.0",
+  "description": "\"# news-explorer-api\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandrprokhorov1988/news-explorer-api.git"
+  },
+  "keywords": [],
+  "author": "Alexandr Prokhorov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandrprokhorov1988/news-explorer-api/issues"
+  },
+  "homepage": "./",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "celebrate": "^13.0.3",
+    "cookie": "^0.4.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
+    "express-winston": "^4.0.5",
+    "helmet": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.11",
+    "validator": "^13.1.17",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6"
+  }
+}
