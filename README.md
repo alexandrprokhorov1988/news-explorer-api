@@ -11,6 +11,8 @@
 Проект News Explorer выполненн на Node.js, Mongodb и Express.
 * IP-адрес сервера : 37.230.115.88
 * URL API https://api.apexpress.students.nomoreparties.co
+* [Ссылка на фронтенд репозиторий](https://github.com/alexandrprokhorov1988/news-explorer-frontend)
+* [Ссылка на full проект](https://apexpress.students.nomoreparties.co/)
 
 #### Запуск проекта
 * [Ссылка](https://api.apexpress.students.nomoreparties.co)
